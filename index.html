@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超简单分享组件</title>
+    <style>
+    .share{
+        text-align: center;
+        padding-top: 100px;
+    }
+    .share a{
+        margin:0 10px;
+    }
+    </style>
+</head>
+<body>
+    <h1 align="center" style="margin-top: 100px;">超简单分享组件</h1>
+    <div class="share">
+        <a href="javascript:share('sina')">新浪微博</a>
+        <a href="javascript:share('qzone')">QQ空间</a>
+        <a href="javascript:share('qq')">QQ</a>
+        <a href="javascript:share('wx')">微信</a>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    function share(cmd){
+            var params = {
+                title:document.title,
+                url:location.href,
+            }
+            switch(cmd){
+                case 'sina':
+                    window.open('http://service.weibo.com/share/share.php?title='+params.title+'&url='+params.url+'&searchPic=true');
+                break;
+                case 'qzone':
+                    window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?title='+params.title+'&url='+params.url+'&searchPic=true');
+                break;
+                case 'qq':
+                    window.open('http://connect.qq.com/widget/shareqq/index.html?title='+params.title+'&url='+params.url+'&searchPic=true');
+                break;
+                case 'wx':
+                    var oDiv = $('<div>');
+                    oDiv.append('<div>分享到微信朋友圈</div>');
+                    oDiv.append('<div style="height:230px;"><img src="http://qr.liantu.com/api.php?text='+params.url+'" alt="'+params.url+'" style="width:100%" /></div>');
+                    oDiv.append('<div>打开微信，点击底部的“发现”，<br>使用“扫一扫”即可将网页分享至朋友圈。</div>');
+                    oDiv.append('<div style="position:absolute;right:10px;top:10px;font-size:16px;color:#666;cursor:pointer;" onclick="$(this).parent().remove()">X</div>');
+                    oDiv.css({
+                        width: 230,
+                        position: 'fixed',
+                        left: '50%',
+                        top: '50%',
+                        margin: '-100px 0 0 -115px',
+                        background:'#fff',
+                        textAlign:'center',
+                        padding:10,
+                        border:'solid 1px #ddd',
+                        fontSize:12,
+                        color:'#666'
+                    });
+                    $('body').append(oDiv);
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
